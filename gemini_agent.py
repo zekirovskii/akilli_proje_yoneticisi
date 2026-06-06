@@ -15,13 +15,13 @@ def generate_foolowup_question(person, task, current_time, previous_responses = 
     person: ekip üyesi örn: can
     task: 
     current_time: 
-    previous_responces: kişinin göreve daha önce verdiği yanıtlar
+    previous_responses: kişinin göreve daha önce verdiği yanıtlar
     """
 
     history = ""
     if previous_responses:
         for item in previous_responses:
-            history += f"Saat {item["time"]}: {item["responce"]}\n" # 2025-08-25 12:04:00 : "merhaba yaptım ya da yapmadım"
+            history += f"Saat {item['time']}: {item['response']}\n" # 2025-08-25 12:04:00 : "merhaba yaptım ya da yapmadım"
 
     # gemini prompt
 
@@ -49,7 +49,7 @@ def generate_foolowup_question(person, task, current_time, previous_responses = 
     response = model.generate_content(prompt, generation_config={"temperature": 0.7})
     return response.text.strip()
 
-def is_task_completed(person, task, responces, current_time): # cevaba göre taskların kararını verir ok mu nok mu
+def is_task_completed(person, task, responses, current_time): # cevaba göre taskların kararını verir ok mu nok mu
     """
     AI yöneticimiz görevin tamamlanıp tamamlanmadığını anlar
     yalnızca 3 cevaptan birini return eder, tamamlandı / devam ediyor / yapılmadı
@@ -57,8 +57,8 @@ def is_task_completed(person, task, responces, current_time): # cevaba göre tas
 
     history = ""
 
-    for item in responces:
-        history += f"Saat: {item["time"]}: {item["responce"]}\n"
+    for item in responses:
+        history += f"Saat: {item['time']}: {item['response']}\n"
 
     
     prompt = f"""
@@ -78,16 +78,16 @@ def is_task_completed(person, task, responces, current_time): # cevaba göre tas
     
     """
 
-    responce = model.generate_content(prompt, generation_config= {"temperature":0})
-    return responce.text.strip().lower()
+    response = model.generate_content(prompt, generation_config= {"temperature":0})
+    return response.text.strip().lower()
 
 
 if __name__ == "__main__":
 
     example_history = [
-        {"time": "12.02" , "responce":"Başladım ama eksik bir şeyler var."},
-        {"time": "12.04" , "responce":"Veritabanı bağlantısını henüz kurmadım."},
-        {"time": "12.06" , "responce":"Tüm taskları temizledim."},
+        {"time": "12.02" , "response":"Başladım ama eksik bir şeyler var."},
+        {"time": "12.04" , "response":"Veritabanı bağlantısını henüz kurmadım."},
+        {"time": "12.06" , "response":"Tüm taskları temizledim."},
     ]
 
     soru = generate_foolowup_question(
@@ -102,7 +102,7 @@ if __name__ == "__main__":
     durum = is_task_completed(
         person= "Yusuf",
         task="İkon setlerini belirle ve renk paletini uygula.",
-        responces=[{"time":"12.02","responce":"verilen görev uzundu hala bitmedi"}],
+        responses=[{"time":"12.02","response":"verilen görev uzundu hala bitmedi"}],
         current_time="25.08.2025 12:04"
     )
     print(f"AI Proje yöneticisi durum değerlendirmesi. Task: {durum}")
