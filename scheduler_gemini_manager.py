@@ -14,7 +14,7 @@ Problem Tanımı:
             kaan: 12.01 saat --> ui design
             kaan: 12.02 saat --> ui test
     
-Veri seti: projeyle ilgili dökümanlar, teknik şartname, proje takvimi, proje sözleşmesi ve      ekleri, literatür taraması, yazılım gereksinim özellikleri dökümanı, yazılım tasarım tanımı, yazılım test tanımı, fabrika kabul testleri, müşteri kabul testleri ...
+Veri seti: projeyle ilgili dökümanlar, teknik şartname, proje takvimi, proje sözleşmesi ve      ekleri, literatür taraması, yazılım gereksinim özellikleri dökümanı, yazılım tasarım tanımı, yazılım test tanımı, fabrika kabul testleri, müşteri kabul testleri, kullanıcı el kitabı 
 
 araçlar ve teknolojiler: gemini 2.5 flash, rich (terminalde renkli çıktı)
 
